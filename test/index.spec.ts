@@ -11,10 +11,11 @@ const fixturePublicKey =
 const fixturePublicKeyStr = '0x' + fixturePublicKey
 const fixturePublicKeyBuffer = Buffer.from(fixturePublicKey, 'hex')
 
-const fixtureAddress = Buffer.from('Texkmv6QtyCSgSLwb1TCjwwyeFzxrWkrvpi').toString('hex')
-const fixtureAddressStr = '0x' + fixtureAddress
-const fixtureAddressExtend = Buffer.from('TfGtWFR262hoct1mC5ZEkTXQmANHnJupKWw').toString('hex')
-const fixtureAddressExtendStr = '0x' + fixtureAddressExtend
+const fixtureAuthID = 'Texkmv6QtyCSgSLwb1TCjwwyeFzxrWkrvpi'
+const fixtureAuthIDBuffer = Buffer.from(fixtureAuthID)
+const fixtureAuthIDStr = '0x' + Buffer.from(fixtureAuthID).toString('hex')
+const fixtureAuthIDExtend = 'TfGtWFR262hoct1mC5ZEkTXQmANHnJupKWw'
+const fixtureAuthIDExtendStr = '0x' + Buffer.from(fixtureAuthIDExtend).toString('hex')
 
 const fixtureWallet = Wallet.fromPrivateKey(fixturePrivateKeyBuffer)
 
@@ -25,7 +26,7 @@ describe('.getPrivateKey()', function() {
   it('should fail', function() {
     assert.throws(function() {
       Wallet.fromPrivateKey(Buffer.from('001122', 'hex'))
-    }, /^Error: Private key does not satisfy the curve requirements.*$/)
+    }, /^Error: Expected private key to be an Uint8Array with length 32$/)
   })
 })
 
@@ -47,14 +48,17 @@ describe('.getPublicKeyString()', function() {
   })
 })
 
-describe('.getAddress()', function() {
+describe('.getAuthID()', function() {
   it('should work', function() {
-    assert.strictEqual(fixtureWallet.getAddress().toString('hex'), fixtureAddress)
+    assert.strictEqual(
+      fixtureWallet.getAuthID().toString('hex'),
+      fixtureAuthIDBuffer.toString('hex'),
+    )
   })
 })
-describe('.getAddressString()', function() {
+describe('.getAuthIDString()', function() {
   it('should work', function() {
-    assert.strictEqual(fixtureWallet.getAddressString(), fixtureAddressStr)
+    assert.strictEqual(fixtureWallet.getAuthIDString(), fixtureAuthIDStr)
   })
 })
 
@@ -68,7 +72,7 @@ describe('public key only wallet', function() {
       fixturePublicKey,
     )
   })
-  /*
+
   it('.fromPublicKey() should not accept compressed keys in strict mode', function() {
     assert.throws(function() {
       Wallet.fromPublicKey(
@@ -76,7 +80,7 @@ describe('public key only wallet', function() {
       )
     }, /^Error: Invalid public key$/)
   })
-  */
+
   it('.fromPublicKey() should accept compressed keys in non-strict mode', function() {
     const tmp = Buffer.from(
       '030639797f6cc72aea0f3d309730844a9e67d9f1866e55845c5f7e0ab48402973d',
@@ -89,12 +93,12 @@ describe('public key only wallet', function() {
       '0639797f6cc72aea0f3d309730844a9e67d9f1866e55845c5f7e0ab48402973defa5cb69df462bcc6d73c31e1c663c225650e80ef14a507b203f2a12aea55bc1',
     )
   })
-  it('.getAddress() should work', function() {
+  it('.getAuthID() should work', function() {
     assert.strictEqual(
       Wallet.fromPublicKey(pubKey)
-        .getAddress()
+        .getAuthID()
         .toString('hex'),
-      fixtureAddress,
+      fixtureAuthIDBuffer.toString('hex'),
     )
   })
   it('.getPrivateKey() should fail', function() {
@@ -109,20 +113,20 @@ describe('.fromExtendedPrivateKey()', function() {
     const xprv =
       'xprv9s21ZrQH143K4KqQx9Zrf1eN8EaPQVFxM2Ast8mdHn7GKiDWzNEyNdduJhWXToy8MpkGcKjxeFWd8oBSvsz4PCYamxR7TX49pSpp3bmHVAY'
     assert.strictEqual(
-      Wallet.fromExtendedPrivateKey(xprv).getAddressString(),
-      fixtureAddressExtendStr,
+      Wallet.fromExtendedPrivateKey(xprv).getAuthIDString(),
+      fixtureAuthIDExtendStr,
     )
   })
   it('should fail', function() {
     const xpri = 'xprXToy8MpkGcKjxeFWd8oBSvsz4PCYamxR7TX49pSpp3bmHVAY'
     assert.throws(function() {
-      Wallet.fromExtendedPrivateKey(xpri).getAddressString(), fixtureAddressExtendStr
+      Wallet.fromExtendedPrivateKey(xpri).getAuthIDString(), fixtureAuthIDExtendStr
     }, /^Error: Not an extended private key$/)
   }),
     it('should fail, short len', function() {
       const xpri = 'xprv1111'
       assert.throws(function() {
-        Wallet.fromExtendedPrivateKey(xpri).getAddressString(), fixtureAddressExtendStr
+        Wallet.fromExtendedPrivateKey(xpri).getAuthIDString(), fixtureAuthIDExtendStr
       }, /^Error: Invalid checksum$/)
     })
 })
@@ -131,15 +135,12 @@ describe('.fromExtendedPublicKey()', function() {
   it('should work', function() {
     const xpub =
       'xpub661MyMwAqRbcGout4B6s29b6gGQsowyoiF6UgXBEr7eFCWYfXuZDvRxP9zEh1Kwq3TLqDQMbkbaRpSnoC28oWvjLeshoQz1StZ9YHM1EpcJ'
-    assert.strictEqual(
-      Wallet.fromExtendedPublicKey(xpub).getAddressString(),
-      fixtureAddressExtendStr,
-    )
+    assert.strictEqual(Wallet.fromExtendedPublicKey(xpub).getAuthIDString(), fixtureAuthIDExtendStr)
   }),
     it('should fail', function() {
       const xpub = 'xpjLeshoQz1StZ9YHM1EpcJ'
       assert.throws(function() {
-        Wallet.fromExtendedPublicKey(xpub).getAddressString(), fixtureAddressExtendStr
+        Wallet.fromExtendedPublicKey(xpub).getAuthIDString(), fixtureAuthIDExtendStr
       }, /^Error: Not an extended public key$/)
     })
 })
@@ -150,25 +151,25 @@ describe('.generate()', function() {
   })
 })
 
-describe('.generateVanityAddress()', function() {
+describe('.generateVanityAuthID()', function() {
   it('should generate an account with TfGv prefix (object)', function() {
     this.timeout(0) // never
-    const wallet = Wallet.generateVanityAddress(/^TfGv/)
+    const wallet = Wallet.generateVanityAuthID(/^TfGv/)
     assert.strictEqual(wallet.getPrivateKey().length, 32)
-    assert.strictEqual(wallet.getAddress()[0], 84)
-    assert.strictEqual(wallet.getAddress()[1], 102)
-    assert.strictEqual(wallet.getAddress()[2], 71)
-    assert.strictEqual(wallet.getAddress()[3], 118)
+    assert.strictEqual(wallet.getAuthID()[0], 84)
+    assert.strictEqual(wallet.getAuthID()[1], 102)
+    assert.strictEqual(wallet.getAuthID()[2], 71)
+    assert.strictEqual(wallet.getAuthID()[3], 118)
   })
 
   it('should generate an account with TfGv prefix (string)', function() {
     this.timeout(0) // never
-    const wallet = Wallet.generateVanityAddress('^TfGv')
+    const wallet = Wallet.generateVanityAuthID('^TfGv')
     assert.strictEqual(wallet.getPrivateKey().length, 32)
-    assert.strictEqual(wallet.getAddress()[0], 84)
-    assert.strictEqual(wallet.getAddress()[1], 102)
-    assert.strictEqual(wallet.getAddress()[2], 71)
-    assert.strictEqual(wallet.getAddress()[3], 118)
+    assert.strictEqual(wallet.getAuthID()[0], 84)
+    assert.strictEqual(wallet.getAuthID()[1], 102)
+    assert.strictEqual(wallet.getAuthID()[2], 71)
+    assert.strictEqual(wallet.getAuthID()[3], 118)
   })
 })
 

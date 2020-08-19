@@ -24,8 +24,8 @@
 
 ### Methods
 
-- [getAddress](wallet.md#getaddress)
-- [getAddressString](wallet.md#getaddressstring)
+- [getAuthID](wallet.md#getauthid)
+- [getAuthIDString](wallet.md#getauthidstring)
 - [getPrivateKey](wallet.md#getprivatekey)
 - [getPrivateKeyString](wallet.md#getprivatekeystring)
 - [getPublicKey](wallet.md#getpublickey)
@@ -35,7 +35,7 @@
 - [fromPrivateKey](wallet.md#fromprivatekey)
 - [fromPublicKey](wallet.md#frompublickey)
 - [generate](wallet.md#generate)
-- [generateVanityAddress](wallet.md#generatevanityaddress)
+- [generateVanityAuthID](wallet.md#generatevanityauthid)
 
 ---
 
@@ -47,7 +47,7 @@
 
 ⊕ **new Wallet**(privateKey: _`Buffer` \| `undefined`_, publicKey?: _`Buffer` \| `undefined`_): [Wallet](wallet.md)
 
-_Defined in index.ts:10_
+_Defined in [index.ts:19](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L19)_
 
 **Parameters:**
 
@@ -68,7 +68,7 @@ _Defined in index.ts:10_
 
 **● privateKey**: _`Buffer` \| `undefined`_
 
-_Defined in index.ts:12_
+_Defined in [index.ts:21](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L21)_
 
 ---
 
@@ -78,7 +78,7 @@ _Defined in index.ts:12_
 
 **● publicKey**: _`Buffer` \| `undefined`_
 
-_Defined in index.ts:13_
+_Defined in [index.ts:22](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L22)_
 
 ---
 
@@ -90,7 +90,7 @@ _Defined in index.ts:13_
 
 **privKey**:
 
-_Defined in index.ts:123_
+_Defined in [index.ts:124](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L124)_
 
 ---
 
@@ -100,31 +100,31 @@ _Defined in index.ts:123_
 
 **pubKey**:
 
-_Defined in index.ts:113_
+_Defined in [index.ts:114](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L114)_
 
 ---
 
 ## Methods
 
-<a id="getaddress"></a>
+<a id="getauthid"></a>
 
-### getAddress
+### getAuthID
 
-▸ **getAddress**(): `Buffer`
+▸ **getAuthID**(): `Buffer`
 
-_Defined in index.ts:162_
+_Defined in [index.ts:163](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L163)_
 
 **Returns:** `Buffer`
 
 ---
 
-<a id="getaddressstring"></a>
+<a id="getauthidstring"></a>
 
-### getAddressString
+### getAuthIDString
 
-▸ **getAddressString**(): `string`
+▸ **getAuthIDString**(): `string`
 
-_Defined in index.ts:169_
+_Defined in [index.ts:170](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L170)_
 
 **Returns:** `string`
 
@@ -136,7 +136,7 @@ _Defined in index.ts:169_
 
 ▸ **getPrivateKey**(): `Buffer`
 
-_Defined in index.ts:137_
+_Defined in [index.ts:138](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L138)_
 
 **Returns:** `Buffer`
 
@@ -148,7 +148,7 @@ _Defined in index.ts:137_
 
 ▸ **getPrivateKeyString**(): `string`
 
-_Defined in index.ts:140_
+_Defined in [index.ts:141](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L141)_
 
 **Returns:** `string`
 
@@ -160,7 +160,7 @@ _Defined in index.ts:140_
 
 ▸ **getPublicKey**(): `Buffer`
 
-_Defined in index.ts:148_
+_Defined in [index.ts:149](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L149)_
 
 **Returns:** `Buffer`
 
@@ -172,7 +172,7 @@ _Defined in index.ts:148_
 
 ▸ **getPublicKeyString**(): `string`
 
-_Defined in index.ts:155_
+_Defined in [index.ts:156](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L156)_
 
 **Returns:** `string`
 
@@ -184,7 +184,7 @@ _Defined in index.ts:155_
 
 ▸ **fromExtendedPrivateKey**(extendedPrivateKey: _`string`_): [Wallet](wallet.md)
 
-_Defined in index.ts:97_
+_Defined in [index.ts:98](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L98)_
 
 **Parameters:**
 
@@ -202,7 +202,7 @@ _Defined in index.ts:97_
 
 ▸ **fromExtendedPublicKey**(extendedPublicKey: _`string`_): [Wallet](wallet.md)
 
-_Defined in index.ts:78_
+_Defined in [index.ts:79](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L79)_
 
 **Parameters:**
 
@@ -220,7 +220,7 @@ _Defined in index.ts:78_
 
 ▸ **fromPrivateKey**(privateKey: _`Buffer`_): [Wallet](wallet.md)
 
-_Defined in index.ts:90_
+_Defined in [index.ts:91](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L91)_
 
 **Parameters:**
 
@@ -238,7 +238,7 @@ _Defined in index.ts:90_
 
 ▸ **fromPublicKey**(publicKey: _`Buffer`_, nonStrict?: _`boolean`_): [Wallet](wallet.md)
 
-_Defined in index.ts:68_
+_Defined in [index.ts:69](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L69)_
 
 **Parameters:**
 
@@ -257,19 +257,19 @@ _Defined in index.ts:68_
 
 ▸ **generate**(): [Wallet](wallet.md)
 
-_Defined in index.ts:41_
+_Defined in [index.ts:42](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L42)_
 
 **Returns:** [Wallet](wallet.md)
 
 ---
 
-<a id="generatevanityaddress"></a>
+<a id="generatevanityauthid"></a>
 
-### `<Static>` generateVanityAddress
+### `<Static>` generateVanityAuthID
 
-▸ **generateVanityAddress**(pattern: _`RegExp` \| `string`_): [Wallet](wallet.md)
+▸ **generateVanityAuthID**(pattern: _`RegExp` \| `string`_): [Wallet](wallet.md)
 
-_Defined in index.ts:49_
+_Defined in [index.ts:50](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/index.ts#L50)_
 
 **Parameters:**
 

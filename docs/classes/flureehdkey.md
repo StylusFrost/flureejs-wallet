@@ -36,7 +36,7 @@
 
 ⊕ **new FlureeHDKey**(\_hdkey: _`any`_): [FlureeHDKey](flureehdkey.md)
 
-_Defined in hdkey.ts:21_
+_Defined in [hdkey.ts:21](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L21)_
 
 **Parameters:**
 
@@ -56,7 +56,7 @@ _Defined in hdkey.ts:21_
 
 **● \_hdkey**: _`any`_
 
-_Defined in hdkey.ts:23_
+_Defined in [hdkey.ts:23](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L23)_
 
 ---
 
@@ -68,7 +68,7 @@ _Defined in hdkey.ts:23_
 
 ▸ **deriveChild**(index: _`number`_): [FlureeHDKey](flureehdkey.md)
 
-_Defined in hdkey.ts:52_
+_Defined in [hdkey.ts:52](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L52)_
 
 **Parameters:**
 
@@ -86,7 +86,7 @@ _Defined in hdkey.ts:52_
 
 ▸ **derivePath**(path: _`string`_): [FlureeHDKey](flureehdkey.md)
 
-_Defined in hdkey.ts:45_
+_Defined in [hdkey.ts:45](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L45)_
 
 **Parameters:**
 
@@ -104,7 +104,7 @@ _Defined in hdkey.ts:45_
 
 ▸ **getWallet**(): [Wallet](wallet.md)
 
-_Defined in hdkey.ts:59_
+_Defined in [hdkey.ts:59](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L59)_
 
 **Returns:** [Wallet](wallet.md)
 
@@ -116,7 +116,7 @@ _Defined in hdkey.ts:59_
 
 ▸ **privateExtendedKey**(): `Buffer`
 
-_Defined in hdkey.ts:28_
+_Defined in [hdkey.ts:28](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L28)_
 
 **Returns:** `Buffer`
 
@@ -128,7 +128,7 @@ _Defined in hdkey.ts:28_
 
 ▸ **publicExtendedKey**(): `Buffer`
 
-_Defined in hdkey.ts:38_
+_Defined in [hdkey.ts:38](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L38)_
 
 **Returns:** `Buffer`
 
@@ -140,7 +140,7 @@ _Defined in hdkey.ts:38_
 
 ▸ **fromExtendedKey**(base58Key: _`string`_): [FlureeHDKey](flureehdkey.md)
 
-_Defined in hdkey.ts:19_
+_Defined in [hdkey.ts:19](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L19)_
 
 **Parameters:**
 
@@ -158,7 +158,7 @@ _Defined in hdkey.ts:19_
 
 ▸ **fromMasterSeed**(seedBuffer: _`Buffer`_): [FlureeHDKey](flureehdkey.md)
 
-_Defined in hdkey.ts:12_
+_Defined in [hdkey.ts:12](https://github.com/StylusFrost/flureejs-wallet/blob/1f6ae6d/src/hdkey.ts#L12)_
 
 **Parameters:**
 
