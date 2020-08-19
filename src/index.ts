@@ -1,8 +1,17 @@
-import * as crypto from 'crypto'
-import { privateKeyVerify, publicKeyVerify, publicKeyConvert, publicKeyCreate } from 'secp256k1'
+import {
+  isValidPrivate,
+  isValidPublic,
+  privateToAuthID,
+  publicToAuthID,
+  importPublic,
+  privateToPublic,
+} from 'flureejs-utils'
+
+import { bufferToHex } from 'flureejs-utils'
+
+import { BS58check } from 'flureejs-utils'
 
 export { default as hdkey } from './hdkey'
-const bs58check = require('bs58check')
 const randomBytes = require('randombytes')
 
 // wallet implementation
@@ -16,20 +25,12 @@ export default class Wallet {
       throw new Error('Cannot supply both a private and a public key to the constructor')
     }
 
-    if (privateKey) {
-      try {
-        !isValidPrivate(privateKey)
-      } catch {
-        throw new Error('Private key does not satisfy the curve requirements (ie. it is invalid)')
-      }
+    if (privateKey && !isValidPrivate(privateKey)) {
+      throw new Error('Private key does not satisfy the curve requirements (ie. it is invalid)')
     }
 
-    if (publicKey) {
-      try {
-        !isValidPublic(publicKey)
-      } catch {
-        throw new Error('Invalid public key')
-      }
+    if (publicKey && !isValidPublic(publicKey)) {
+      throw new Error('Invalid public key')
     }
   }
 
@@ -43,17 +44,17 @@ export default class Wallet {
   }
 
   /**
-   * Create an instance where the address is valid against the supplied pattern (**this will be very slow**)
+   * Create an instance where the authID is valid against the supplied pattern (**this will be very slow**)
    */
 
-  public static generateVanityAddress(pattern: RegExp | string): Wallet {
+  public static generateVanityAuthID(pattern: RegExp | string): Wallet {
     if (!(pattern instanceof RegExp)) {
       pattern = new RegExp(pattern)
     }
     while (true) {
       const privateKey = randomBytes(32) as Buffer
-      const address = privateToAddress(privateKey)
-      if (pattern.test(address)) {
+      const authID = privateToAuthID(privateKey).toString()
+      if (pattern.test(authID)) {
         return new Wallet(privateKey)
       }
     }
@@ -79,7 +80,7 @@ export default class Wallet {
     if (extendedPublicKey.slice(0, 4) !== 'xpub') {
       throw new Error('Not an extended public key')
     }
-    const publicKey: Buffer = bs58check.decode(extendedPublicKey).slice(45)
+    const publicKey: Buffer = BS58check.decode(extendedPublicKey).slice(45)
     // Convert to an Ethereum public key
     return Wallet.fromPublicKey(publicKey, true)
   }
@@ -98,7 +99,7 @@ export default class Wallet {
     if (extendedPrivateKey.slice(0, 4) !== 'xprv') {
       throw new Error('Not an extended private key')
     }
-    const tmp: Buffer = bs58check.decode(extendedPrivateKey)
+    const tmp: Buffer = BS58check.decode(extendedPrivateKey)
     if (tmp[45] !== 0) {
       throw new Error('Invalid extended private key')
     }
@@ -157,17 +158,17 @@ export default class Wallet {
   }
 
   /**
-   * Returns the wallet's address.
+   * Returns the wallet's authID.
    */
-  public getAddress(): Buffer {
-    return publicToAddress(this.pubKey)
+  public getAuthID(): Buffer {
+    return publicToAuthID(this.pubKey)
   }
 
   /**
-   * Returns the wallet's address as string
+   * Returns the wallet's authID as string
    */
-  public getAddressString(): string {
-    return bufferToHex(this.getAddress())
+  public getAuthIDString(): string {
+    return bufferToHex(this.getAuthID())
   }
 }
 
@@ -175,58 +176,4 @@ export default class Wallet {
 
 function keyExists(k: Buffer | undefined | null): k is Buffer {
   return k !== undefined && k !== null
-}
-
-function isValidPrivate(privateKey: Buffer): boolean {
-  return privateKeyVerify(privateKey)
-}
-
-function isValidPublic(publicKey: Buffer): boolean {
-  if (publicKey.length === 64) {
-    // Convert to SEC1 for secp256k1
-    return publicKeyVerify(Buffer.concat([Buffer.from([4]), publicKey]))
-  }
-  return publicKeyVerify(publicKey)
-}
-
-function bufferToHex(buf: Buffer): string {
-  return '0x' + buf.toString('hex')
-}
-
-function hexToUnit8Array(str: string) {
-  return new Uint8Array(Buffer.from(str, 'hex'))
-}
-
-function importPublic(publicKey: Buffer): Buffer {
-  if (publicKey.length !== 64) {
-    publicKey = Buffer.from(publicKeyConvert(publicKey, false).slice(1))
-  }
-  return publicKey
-}
-
-function privateToPublic(privateKey: Buffer): Buffer {
-  // skip the type flag and use the X, Y points
-  return Buffer.from(publicKeyCreate(privateKey, false)).slice(1)
-}
-
-function publicToAddress(publicKey: Buffer): Buffer {
-  const hashSHA = crypto
-    .createHash('sha256')
-    .update(hexToUnit8Array(publicKey.toString('hex')))
-    .digest()
-  const hashRIPE = crypto
-    .createHash('ripemd160')
-    .update(hashSHA)
-    .digest('hex')
-
-  const pubPrefixed = '0f' + '02' + hashRIPE
-
-  const account_id = bs58check.encode(hexToUnit8Array(pubPrefixed))
-
-  return Buffer.from(account_id)
-}
-
-function privateToAddress(privateKey: Buffer): string {
-  const publicKey = privateToPublic(privateKey)
-  return publicToAddress(publicKey).toString()
 }
