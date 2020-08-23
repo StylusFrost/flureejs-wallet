@@ -10,6 +10,9 @@ module.exports = function(config) {
       bundlerOptions: {
         entrypoints: /\.spec\.ts$/,
       },
+      compilerOptions:{
+        esModuleInterop: true
+      }
     },
     colors: true,
     reporters: ['progress', 'karma-typescript'],
