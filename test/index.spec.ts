@@ -2,19 +2,19 @@
 import * as assert from 'assert'
 import Wallet from '../src'
 
-const fixturePrivateKey = 'efca4cdd31923b50f4214af5d2ae10e7ac45a5019e9431cc195482d707485378'
+const fixturePrivateKey = 'fe0af041abb1c734f8ab18d5c35385ef1f1c54a7d91fd2a5f9fdd03fcf077600'
 const fixturePrivateKeyStr = '0x' + fixturePrivateKey
 const fixturePrivateKeyBuffer = Buffer.from(fixturePrivateKey, 'hex')
 
 const fixturePublicKey =
-  '5d4392f450262b276652c1fc037606abac500f3160830ce9df53aa70d95ce7cfb8b06010b2f3691c78c65c21eb4cf3dfdbfc0745d89b664ee10435bb3a0f906c'
+  '8a271161197e408c9b64a684fcbd6c2b05c08dfcb2a8d3ef444671a128511b6379eba36c622cab9254f5221874a6d8629c83dc4f4720d31e763ab8e109dcbe2b'
 const fixturePublicKeyStr = '0x' + fixturePublicKey
 const fixturePublicKeyBuffer = Buffer.from(fixturePublicKey, 'hex')
 
-const fixtureAuthID = 'Texkmv6QtyCSgSLwb1TCjwwyeFzxrWkrvpi'
+const fixtureAuthID = 'Tf8ovHdgnDZXrMzqELpa1xs1cfdhJie3Pwa'
 const fixtureAuthIDBuffer = Buffer.from(fixtureAuthID)
 const fixtureAuthIDStr = '0x' + Buffer.from(fixtureAuthID).toString('hex')
-const fixtureAuthIDExtend = 'TfGtWFR262hoct1mC5ZEkTXQmANHnJupKWw'
+const fixtureAuthIDExtend = 'TfHvTN7gkPsirF1EEghJJK9FeNwAtAXNoeK'
 const fixtureAuthIDExtendStr = '0x' + Buffer.from(fixtureAuthIDExtend).toString('hex')
 
 const fixtureWallet = Wallet.fromPrivateKey(fixturePrivateKeyBuffer)
