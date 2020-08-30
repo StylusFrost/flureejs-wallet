@@ -9,7 +9,7 @@ import {
 
 import { bufferToHex } from 'flureejs-utils'
 
-import { BS58check } from 'flureejs-utils'
+const BS58check = require('bs58check')
 
 export { default as hdkey } from './hdkey'
 const randomBytes = require('randombytes')
